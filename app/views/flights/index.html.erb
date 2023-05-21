@@ -1,0 +1,26 @@
+<h1>Flight Search</h1>
+
+<%= form_tag flights_path, method: :get do %>
+  <%= label_tag :departure_airport_id, 'Departure Airport' %>
+  <%= select_tag :departure_airport_id, options_for_select(Airport.all.map { |a| [a.code, a.id] }) %>
+  
+  <%= label_tag :arrival_airport_id, 'Arrival Airport' %>
+  <%= select_tag :arrival_airport_id, options_for_select(Airport.all.map { |a| [a.code, a.id] }) %>
+  
+  <%= label_tag :num_passengers, 'Number of Passengers' %>
+  <%= select_tag :num_passengers, options_for_select([1, 2, 3, 4]) %>
+  
+  <%= label_tag :start_datetime, 'Flight Date' %>
+  <%= select_date(Date.today, prefix: :start_datetime) %>
+  
+  <%= submit_tag 'Search Flights' %>
+<% end %>
+
+
+<% if @flights.present? %>
+  <h2>Search Results:</h2>
+  <% @flights.each do |flight| %>
+    <p><%= flight.departure_airport.code %> to <%= flight.arrival_airport.code %></p>
+    <!-- Display other flight details -->
+  <% end %>
+<% end %>
