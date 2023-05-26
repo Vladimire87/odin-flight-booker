@@ -1,0 +1,34 @@
+<%= form_with model: @booking do |f| %>
+  <div class="bg-body-secondary px-2 pt-2 pb-2">
+    <h2>Flight Information</h2>
+    <p><%= @flight&.start_datetime&.strftime("%B %d, %Y ") %></p>
+    <div
+  style="display: flex; justify-content: space-between; align-items: center;"
+>
+      <h5 class="m-0"><%= @flight&.departure_airport&.code %></h5>
+      <div class="w-100 px-2 text-info">
+        <hr class="border-3"/>
+      </div>
+      <h5 class="m-0"><%= @flight&.arrival_airport&.code %></h5>
+    </div>
+    <p>Passengers:
+      <%= @num_tickets %></p>
+    <p>Duration:
+      <%= @flight&.flight_duration %> - hours</p>
+  </div>
+  <h3>Passenger Information</h3>
+  <% @booking.passengers.each_with_index do |passenger, index| %>
+    <%= f.fields_for :passengers, passenger do |passenger_fields| %>
+      <h6 class="mt-2">Passenger <%= index + 1 %></h6>
+      <%= passenger_fields.label :name, "Name" %>
+      <%= passenger_fields.text_field :name, class: "form-control" %>
+      <%= passenger_fields.label :email, "Email" %>
+      <%= passenger_fields.email_field :email, class: "form-control" %>
+    <% end %>
+  <% end %>
+  <%= f.hidden_field :flight_id, value: @flight.id %>
+  <%= f.submit "Confirm Booking", class: "mt-2 btn btn-primary form-control" %>
+<% end %>
+<div class="mt-4">
+  <%= link_to "Go Back", :back %>
+</div>

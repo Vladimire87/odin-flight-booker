@@ -1,0 +1,35 @@
+<h2>Booking Information</h2>
+<p>Booking ID: <%= @booking.id %></p>
+<!-- Display other booking information as needed -->
+<div class="bg-body-secondary px-2 pt-2 pb-2">
+  <h2>Flight Information</h2>
+  <p><%= @flight&.start_datetime&.strftime("%B %d, %Y ") %></p>
+  <p>Departure Date: <%= @booking.flight.start_datetime.strftime("%B %d, %Y - %H:%M") %></p>
+  <div
+  style="display: flex; justify-content: space-between; align-items: center;"
+>
+    <h5 class="m-0"> <%= @booking.flight.departure_airport.code %>
+    </h5>
+    <div class="w-100 px-2 text-info">
+      <hr class="border-3"/>
+    </div>
+    <h5 class="m-0"> <%= @booking.flight.arrival_airport.code %></h5>
+  </div>
+  <p>Passengers:
+    <%= @booking.passengers.count %></p>
+  <p>Duration:
+    <%= @booking.flight.flight_duration %> - hours</p>
+</div>
+<h2>Flight Information</h2>
+<hr>
+<% @booking.passengers.each do |passenger|%>
+  <p>Name: <%= passenger.name%></p>
+  <p>Email: <%= passenger.email%></p>
+  <hr>
+<%end%>
+<div class="mt-4">
+  <%= link_to "Go Back", :back %>
+</div>
+<div class="mt-4">
+  <%= link_to "Go Home", root_path %>
+</div>

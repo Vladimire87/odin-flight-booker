@@ -1,0 +1,26 @@
+<% if @flights.present? %>
+  <h2 class="mt-2">Search Results:</h2>
+  <%= form_tag new_booking_path, method: :get do %>
+    <% @flights.each do |flight| %>
+      <div class="form-check">
+        <%= radio_button_tag :flight_id,
+        flight.id,
+        false,
+        class: "form-check-input",
+        required: true %>
+        <%= flight.departure_airport.code %>
+        to
+        <%= flight.arrival_airport.code %>
+        Departure:
+        <%= flight.start_datetime.strftime("%B %d, %Y ") %>
+        Duration:
+        <%= flight.flight_duration %>
+        hours
+      </div>
+    <% end %>
+    <%= hidden_field_tag :number_of_passengers, @num_tickets %>
+    <%= submit_tag "Select Flight", class: "mt-2 btn btn-primary form-control" %>
+  <% end %>
+<% else %>
+  <p class="mt-3">No flights found for the selected criteria.</p>
+<% end %>

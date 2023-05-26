@@ -1,0 +1,37 @@
+<%= form_with model: @flight, method: :get do |f| %>
+  <%# departure airports %>
+  <%= f.label :departure_airport_id, "From" %>
+  <%= select_tag(
+    :departure_airport_id,
+    options_for_select((@airport_code), params[:departure_airport_id]),
+    include_blank: true,
+    class: "form-control",
+    required: true
+  ) %>
+  <%# arrival airports %>
+  <%= f.label :arrival_airport_id, "To" %>
+  <%= select_tag(
+    :arrival_airport_id,
+    options_for_select((@airport_code), params[:arrival_airport_id]),
+    include_blank: true,
+    class: "form-control",
+    required: true
+  ) %>
+  <%# number of passengers (1-4) %>
+  <%= f.label :number_of_passengers, "Passengers" %>
+  <%= select_tag :number_of_passengers,
+  options_for_select([1, 2, 3, 4], params[:number_of_passengers].to_i),
+  class: "form-control",
+  required: true %>
+  <%# date dropdown for the flight date. The date dropdown should only include dates that have existing flights %>
+  <%= f.label :start_datetime, "Flight Date" %>
+  <%= f.select :start_datetime,
+           options_for_select(
+             @flight_dates.map { |date| [date.strftime("%B %d, %Y"), date] },
+             params[:start_datetime]
+           ),
+           { include_blank: true },
+           class: "form-control",
+           required: true %>
+  <%= f.submit "Search", class: "mt-2 btn btn-primary form-control" %>
+<% end %>
