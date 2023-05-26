@@ -11,15 +11,26 @@
 # Airport.delete_all
 # Flight.delete_all
 
-# Airport.create(code: 'SVO')
-# Airport.create(code: 'VKO')
-# Airport.create(code: 'DME')
+airport_codes = %w[SVO VKO DME JFK LAX CDG LHR HND PEK SYD]
 
-5.times do
+# Create random airports
+airport_codes.each do |code|
+  Airport.create(code:)
+end
+
+# Create random flights
+50.times do
+  departure_airport = Airport.all.sample
+  arrival_airport = (Airport.all - [departure_airport]).sample
+  start_datetime = DateTime.now + rand(1..30).days
+  flight_duration = rand(2..8)
+
   Flight.create(
-    departure_airport_id: Airport.first.id,
-    arrival_airport_id: Airport.last.id,
-    start_datetime: DateTime.now,
-    flight_duration: 2
+    departure_airport:,
+    arrival_airport:,
+    start_datetime:,
+    flight_duration:
   )
 end
+
+puts '----seeded----'

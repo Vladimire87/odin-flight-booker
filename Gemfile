@@ -74,3 +74,7 @@ group :test do
 end
 
 gem "erb-formatter", "~> 0.4.3"
+
+gem "dockerfile-rails", ">= 1.4", :group => :development
+
+gem "pg", "~> 1.5"
