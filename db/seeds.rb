@@ -11,15 +11,15 @@
 # Airport.delete_all
 # Flight.delete_all
 
-airport_codes = %w[SVO VKO DME JFK LAX CDG LHR HND PEK SYD]
+# airport_codes = %w[SVO VKO DME JFK LAX CDG LHR HND PEK SYD]
 
-# Create random airports
-airport_codes.each do |code|
-  Airport.create(code:)
-end
+# # Create random airports
+# airport_codes.each do |code|
+#   Airport.create(code:)
+# end
 
 # Create random flights
-50.times do
+1000.times do
   departure_airport = Airport.all.sample
   arrival_airport = (Airport.all - [departure_airport]).sample
   start_datetime = DateTime.now + rand(1..30).days
