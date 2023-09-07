@@ -13,6 +13,7 @@ class BookingsController < ApplicationController
     puts booking_params.inspect
     @booking = Booking.new(booking_params)
     if @booking.save
+      PassengerMailer.with(@booking).welcome_email.deliver_now
       redirect_to booking_path(@booking)
     else
       puts params[:flight_id]
